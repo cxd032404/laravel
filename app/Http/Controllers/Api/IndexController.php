@@ -23,7 +23,7 @@ class IndexController extends Controller
         $redis_key = "redis-test";
         $r =  $redis->incrBy($redis_key,rand(1,9));
 
-        $client = ClientBuilder::create()->setHosts(['127.0.0.1:9200'])->build();
+        $client = app('elasticsearch');
 
         $pa =
             [
