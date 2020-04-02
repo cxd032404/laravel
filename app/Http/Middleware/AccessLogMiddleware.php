@@ -89,7 +89,7 @@ class AccessLogMiddleware
             ];
         $request->sign = $sign;
         $request->startTime = $startTime;
-        file_put_contents(__DIR__.'/../../../storage/logs/request.log',implode("|",$logBody),FILE_APPEND);
+        file_put_contents(__DIR__.'/../../../storage/logs/request.log',implode("|",$logBody)."\n",FILE_APPEND);
         //file_put_contents(__DIR__.'/../../../storage/logs/request.log',$request->path(),FILE_APPEND);
         return $next($request);
     }

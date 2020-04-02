@@ -24,7 +24,7 @@ class WriteLogMiddleware
             $processTime,
             $response->getContent(),
         ];
-        file_put_contents(__DIR__.'/../../../storage/logs/response.log',implode("|",$logBody),FILE_APPEND);
+        file_put_contents(__DIR__.'/../../../storage/logs/response.log',implode("|",$logBody)."\n",FILE_APPEND);
 
         //file_put_contents(__DIR__.'/../../../storage/logs/request.log',$request->path(),FILE_APPEND);
         return $next($request);
