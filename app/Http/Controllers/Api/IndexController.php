@@ -22,6 +22,7 @@ class IndexController extends Controller
         $redis  = Redis::connection("default");
         $redis_key = "redis-test";
         $r =  $redis->incrBy($redis_key,rand(1,9));
+
         $client = ClientBuilder::create()->setHosts(['127.0.0.1:9200'])->build();
 
         $pa =
@@ -40,7 +41,6 @@ class IndexController extends Controller
                     ]
             ];
         $search_return = json_decode(json_encode($client->search($pa)),true);
-
         return response()->json(['s1'=>$s1,'s2'=>$s2,'redis'=>$r,'search'=>$search_return],200);
     }
 }
