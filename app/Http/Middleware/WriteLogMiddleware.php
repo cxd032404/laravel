@@ -16,7 +16,15 @@ class WriteLogMiddleware
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        file_put_contents(__DIR__.'/../../../storage/logs/response.log',$response,FILE_APPEND);
+        $endTime = microtime(true);
+        $processTime = $endTime - $request->startTime;
+        $logBody = [
+            date("Y-m-d H:i:s"),
+            $request->sign,
+            $processTime,
+            $response->getContent(),
+        ];
+        file_put_contents(__DIR__.'/../../../storage/logs/response.log',implode("|",$logBody),FILE_APPEND);
 
         //file_put_contents(__DIR__.'/../../../storage/logs/request.log',$request->path(),FILE_APPEND);
         return $next($request);
